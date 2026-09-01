@@ -3,7 +3,7 @@ import { useAnecdotes, useAnecdotesActions } from "../store"
 
 function AnecdoteList() {
   const anecdotes = useAnecdotes()
-  const vote = useAnecdotesActions()
+  const { vote } = useAnecdotesActions()
 
 
   return (
