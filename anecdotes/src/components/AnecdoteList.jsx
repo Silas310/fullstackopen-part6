@@ -1,16 +1,19 @@
-import { useAnecdotes, useAnecdotesActions } from "../store"
-
+import { useAnecdotes, useAnecdotesActions, useFilterQuery } from "../store";
 
 function AnecdoteList() {
-  const anecdotes = useAnecdotes()
-  const { vote } = useAnecdotesActions()
+  const anecdotes = useAnecdotes();
+  const { vote } = useAnecdotesActions();
+  const filterQuery = useFilterQuery();
 
-  const sortAnecdotes = (anecdotes) => {
-    return anecdotes.toSorted((a, b) => b.votes - a.votes);
-  }
+  const filteredAnecdotes = anecdotes.filter((anecdote) =>
+    anecdote.content.toLowerCase().includes(filterQuery.toLowerCase()),
+  );
 
-  const sortedAnecdotes = sortAnecdotes(anecdotes);
+  const sortAnecdotes = (filteredAnecdotes) => {
+    return filteredAnecdotes.toSorted((a, b) => b.votes - a.votes);
+  };
 
+  const sortedAnecdotes = sortAnecdotes(filteredAnecdotes);
 
   return (
     <>
@@ -27,4 +30,4 @@ function AnecdoteList() {
   );
 }
 
-export default AnecdoteList
+export default AnecdoteList;
